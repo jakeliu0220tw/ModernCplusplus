@@ -2,8 +2,10 @@
 #include <iostream>
 #include <curl/curl.h>
 
-static size_t my_fwrite(void *buffer, size_t size, size_t nmemb,
-	FILE *stream)
+#define USER_PWD "user:pwd"
+#define FTP_URL "ftp://tmp/tmp.zip"
+
+static size_t my_fwrite(void *buffer, size_t size, size_t nmemb, FILE *stream)
 {
 	return fwrite(buffer, size, nmemb, stream);
 }
@@ -42,14 +44,14 @@ void example2()
      * FTP:// URL with standard explicit FTPS. You can also do FTPS:// URLs if
      * you want to do the rarer kind of transfers: implicit.
      */
-	curl_easy_setopt(curl, CURLOPT_URL, "ftp://XX.XX.XX.XX:990/tmp/tmp.zip");
+	curl_easy_setopt(curl, CURLOPT_URL, FTP_URL);
 	curl_easy_setopt(curl, CURLOPT_PROTOCOLS, CURLPROTO_FTP | CURLPROTO_FTPS);
-	curl_easy_setopt(curl, CURLOPT_USERPWD, "user:pwd");
+	curl_easy_setopt(curl, CURLOPT_USERPWD, USER_PWD);
 
     /* Define our callback to get called when there's data to be written */
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, my_fwrite);
     /* Set a pointer to our struct to pass to the callback */
-	curl_easy_setopt(curl, CURLOPT_WRITEDATA, fhandle);
+	curl_easy_setopt(curl, CURLOPT_FILE, fhandle);
 
     res = curl_easy_perform(curl);
 
@@ -70,11 +72,11 @@ void example2()
 int main()
 {
 	std::cout << "libcurl example" << std::endl;
-	curl_global_init(CURL_GLOBAL_DEFAULT);
+	//curl_global_init(CURL_GLOBAL_DEFAULT);
 
 	//example1();
 	example2();
 
-	curl_global_cleanup();
+	//curl_global_cleanup();
 	return 0;
 }
