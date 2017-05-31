@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+//#include <WinBase.h>
 
 int main(int, char*[])
 {
@@ -25,6 +26,11 @@ int main(int, char*[])
 		std::cout << str << std::endl;
 	}
 	ifs2.close();
+
+	// rename file
+	std::rename("D:/GitRepo/jakeliu0220tw/ModernCplusplus/file_operation/Debug/myfile.txt", "D:/GitRepo/jakeliu0220tw/ModernCplusplus/file_operation/Debug/myfile.txt.old");
+	std::rename("7z.dll", "7z.dll.old");
+
 
 	return 0;
 }
