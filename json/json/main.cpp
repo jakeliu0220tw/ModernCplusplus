@@ -68,6 +68,16 @@ void example2() {
 	};
 
 	std::cout << j.dump(4) << std::endl;
+
+	auto obj = j.find("object");
+	std::cout << "key => value" << std::endl;
+	std::cout << obj.key() << " => " << obj.value() << std::endl;
+	std::cout << "value is object? => " << obj.value().is_object() << std::endl;
+
+	auto currency = obj.value().find("currency");
+	std::cout << "find currency" << std::endl;
+	std::cout << "key => value" << std::endl;
+	std::cout << currency.key() << " => " << currency.value() << std::endl;
 }
 
 // string to/from json obj
@@ -243,11 +253,11 @@ void example7()
 int main() 
 {
 	//example1();
-	//example2();
+	example2();
 	//example3();
 	//example4();
 	//example5();
 	//example6();
-	example7();
+	//example7();
 	return 0;
 }
